@@ -87,8 +87,7 @@
 			max-height: 150px;
 			max-width: 100%;
 			background: rgba(255, 255, 255, 0.8);
-			padding: 35px 18px 15
-            px 18px;
+			padding: 35px 18px 15px 18px;
 			margin-top: 31px;
 			margin-left: 15px;
 			border-radius: 10px;
@@ -218,7 +217,7 @@
         const timestampStr = `${hours}:${minutes}`;
 
         const platformIconHtml = data.type ? `<img class="platform-icon" src="https://socialstream.ninja/sources/images/${data.type}.png" onerror="this.style.display='none'" />` : '';
-        
+
 		messageDiv.innerHTML = `
 			${data.chatimg ? `<div class="avatar-wrapper"><div class="avatar" style="background-image: url('${data.chatimg}');"></div></div>` : ''}
 			<div class="username-box">
