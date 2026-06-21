@@ -104,13 +104,6 @@
             user-select: none;
         }
 
-        .platform-icon {
-            height: 18px;         /* Matches your timestamp text size */
-            width: auto;
-            vertical-align: middle;
-            margin-right: 6px;    /* Spacing between the icon and the timestamp */
-        }
-
 		.badges svg, .badges img, .text svg, .text img {
 			max-width:64px;
 			max-height:24px;
@@ -218,15 +211,16 @@
 
         const platformIconHtml = data.type ? `<img class="platform-icon" src="https://socialstream.ninja/sources/images/${data.type}.png" onerror="this.style.display='none'" />` : '';
 
-        messageDiv.innerHTML = `
-            ${data.chatimg ? `<div class="avatar-wrapper"><div class="avatar" style="background-image: url('${data.chatimg}');"></div></div>` : ''}
-            <div class="username-box">
-                <span>${data.chatname}</span>
-                <span class="badges">${chatbadges}</span>
-            </div>
-            <div class="text">${platformIconHtml}<span class="timestamp">[${timestampStr}]</span>${data.chatmessage || ''}</div>
-            ${(data.donation||data.hasDonation) ? `<div class="donation">${(data.donation||data.hasDonation)}</div>` : ''}
-        `;
+		messageDiv.innerHTML = `
+			${data.chatimg ? `<div class="avatar-wrapper"><div class="avatar" style="background-image: url('${data.chatimg}');"></div></div>` : ''}
+			<div class="username-box">
+                <span>${platformIconHtml}</span>
+				<span>${data.chatname}</span>
+				<span class="badges">${chatbadges}</span>
+			</div>
+			<div class="text"><span class="timestamp">[${timestampStr}]</span>${data.chatmessage || ''}</div>
+			${(data.donation||data.hasDonation) ? `<div class="donation">${(data.donation||data.hasDonation)}</div>` : ''}
+		`;
 
 		messageContainer.appendChild(messageDiv);
 		chatContainer.appendChild(messageContainer);
