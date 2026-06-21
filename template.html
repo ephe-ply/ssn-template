@@ -15,8 +15,7 @@
             background-color: rgba(10, 22, 40, 0.8);
             font-family: 'Host Grotesk', sans-serif;
             background-color: #0000;
-            /* Added base font size increase (+3px) */
-            font-size: 22px; 
+            font-size: 22px;
         }
 
 		.message-container {
@@ -53,8 +52,7 @@
             color: #ffffff;
             font-weight: 600;
             z-index: 2;
-            /* Bumped name size slightly to match overall scale */
-            font-size: 0.95em; 
+            font-size: 0.95em;
         }
 		
 		.username-box span {
@@ -80,7 +78,6 @@
 			display: inline-block;
 			max-height: 150px;
 			max-width: 100%;
-            /* Opacity increased back to 50% (0.5) */
 			background: rgba(255, 255, 255, 0.8);
 			padding: 24px 18px 18px 18px;
 			margin-top: 22px;
@@ -92,11 +89,20 @@
 		}
 
         .text {
-            /* Adjusted clamp scaling to match the larger typography layout */
-            font-size: clamp(0.95em, 2.8vw, 1.15em);
+            font-size: clamp(0.95em, 2.4vw, 1.15em);
             line-height: 1.4;
 			word-break: break-word;
         }
+
+        /* Styling for the added 24h timestamp */
+        .timestamp {
+            font-size: 18px;
+            color: #000000;
+            margin-right: 8px;
+            font-weight: 500;
+            user-select: none;
+        }
+
 		.badges svg, .badges img, .text svg, .text img {
 			max-width:64px;
 			max-height:24px;
@@ -104,13 +110,15 @@
 		
 		#chat-container {
 			padding: 0;
-            /* Expanded width constraint slightly to prevent text clipping from larger font */
 			max-width: 456px;
 			margin: auto;
-			max-height: 100vh;
+			height: 100vh;
 			overflow-y: auto;
 			scrollbar-width: none;  /* Firefox */
 			-ms-overflow-style: none;  /* IE and Edge */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
 		}
 
 		#chat-container::-webkit-scrollbar {
@@ -131,7 +139,7 @@
 
     <script>
     var urlParams = new URLSearchParams(window.location.search);
-    var roomID = urlParams.get("session") || ""; 
+    var roomID = urlParams.get("session") || "";
     var password = "false"; 
     var featuredMode = false; 
 
@@ -144,8 +152,7 @@
         var _fs = parseInt(urlParams.get("font"), 10);
         if (!isNaN(_fs) && _fs > 0) { document.documentElement.style.fontSize = (_fs + 3) + "px"; }
     } else {
-        // Fallback baseline handling if &font parameter isn't passed explicitly in the URL string
-        document.documentElement.style.fontSize = "19px";
+        document.documentElement.style.fontSize = "22px";
     }
     if (urlParams.has("fontfamily")) {
         var _ff = (urlParams.get("fontfamily") || "").trim();
@@ -195,30 +202,31 @@
 			});
 		}
 
+        // Generate current local time in 24-hour format (HH:MM)
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const timestampStr = `${hours}:${minutes}`;
+
 		messageDiv.innerHTML = `
 			${data.chatimg ? `<div class="avatar-wrapper"><div class="avatar" style="background-image: url('${data.chatimg}');"></div></div>` : ''}
 			<div class="username-box">
 				<span>${data.chatname}</span>
 				<span class="badges">${chatbadges}</span>
 			</div>
-			<div class="text">${data.chatmessage || ''}</div>
+			<div class="text"><span class="timestamp">${timestampStr}</span>${data.chatmessage || ''}</div>
 			${(data.donation||data.hasDonation) ? `<div class="donation">${(data.donation||data.hasDonation)}</div>` : ''}
 		`;
 
 		messageContainer.appendChild(messageDiv);
-		
-		const isAtBottom = chatContainer.scrollHeight - chatContainer.scrollTop <= chatContainer.clientHeight + 1;
 		chatContainer.appendChild(messageContainer);
 
 		messageContainer.offsetHeight;
 		
 		requestAnimationFrame(() => {
 			messageContainer.classList.add('visible');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
 		});
-
-		if (isAtBottom) {
-			chatContainer.scrollTop = chatContainer.scrollHeight;
-		}
 
         if (SHOWTIME > 0) {
             setTimeout(() => {
@@ -228,7 +236,7 @@
                     if (messageContainer.parentNode) {
                         messageContainer.parentNode.removeChild(messageContainer);
                     }
-                }, 500); 
+                }, 500);
             }, SHOWTIME);
         }
 	}
@@ -256,14 +264,14 @@
         var serverURL = urlParams.has("localserver") ? "ws://127.0.0.1:3000" : "wss://io.socialstream.ninja";
 
         function setupSocket(){
-            socketserver.onclose = function (){
+            socketserver.onclose = function () {
                 setTimeout(function(){
                     conCon+=1;
                     socketserver = new WebSocket(serverURL);
                     setupSocket();
                 },100*conCon);
             };
-            socketserver.onopen = function (){
+            socketserver.onopen = function () {
                 conCon = 1;
                 socketserver.send(JSON.stringify({"join":roomID, "out":3, "in":4}));
             };
@@ -283,7 +291,7 @@
             });
         }
         
-        if (urlParams.has("server") || urlParams.has("server2")){ 
+        if (urlParams.has("server") || urlParams.has("server2")){
             serverURL = urlParams.get("server") ||  urlParams.get("server2") || serverURL;
             socketserver = new WebSocket(serverURL);
             setupSocket();
