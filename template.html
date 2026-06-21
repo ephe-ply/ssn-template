@@ -15,6 +15,8 @@
             background-color: rgba(10, 22, 40, 0.8);
             font-family: 'Host Grotesk', sans-serif;
             background-color: #0000;
+            /* Added base font size increase (+3px) */
+            font-size: 19px; 
         }
 
 		.message-container {
@@ -51,6 +53,8 @@
             color: #ffffff;
             font-weight: 600;
             z-index: 2;
+            /* Bumped name size slightly to match overall scale */
+            font-size: 0.95em; 
         }
 		
 		.username-box span {
@@ -76,7 +80,8 @@
 			display: inline-block;
 			max-height: 150px;
 			max-width: 100%;
-			background: rgba(255, 255, 255, 0.3);
+            /* Opacity increased back to 50% (0.5) */
+			background: rgba(255, 255, 255, 0.5);
 			padding: 24px 18px 18px 18px;
 			margin-top: 22px;
 			margin-left: 15px;
@@ -87,7 +92,8 @@
 		}
 
         .text {
-            font-size: clamp(0.85em, 2.5vw, 1em);
+            /* Adjusted clamp scaling to match the larger typography layout */
+            font-size: clamp(0.95em, 2.8vw, 1.15em);
             line-height: 1.4;
 			word-break: break-word;
         }
@@ -98,7 +104,8 @@
 		
 		#chat-container {
 			padding: 0;
-			max-width: 350px;
+            /* Expanded width constraint slightly to prevent text clipping from larger font */
+			max-width: 380px;
 			margin: auto;
 			max-height: 100vh;
 			overflow-y: auto;
@@ -124,10 +131,7 @@
 
     <script>
     var urlParams = new URLSearchParams(window.location.search);
-    
-    // Removed the default hardcoded string fallback entirely
     var roomID = urlParams.get("session") || ""; 
-    
     var password = "false"; 
     var featuredMode = false; 
 
@@ -138,7 +142,10 @@
     }
     if (urlParams.has("font")) {
         var _fs = parseInt(urlParams.get("font"), 10);
-        if (!isNaN(_fs) && _fs > 0) { document.documentElement.style.fontSize = _fs + "px"; }
+        if (!isNaN(_fs) && _fs > 0) { document.documentElement.style.fontSize = (_fs + 3) + "px"; }
+    } else {
+        // Fallback baseline handling if &font parameter isn't passed explicitly in the URL string
+        document.documentElement.style.fontSize = "19px";
     }
     if (urlParams.has("fontfamily")) {
         var _ff = (urlParams.get("fontfamily") || "").trim();
@@ -226,7 +233,6 @@
         }
 	}
 
-    // Only initiate stream frame listening if a session ID is actually provided
     if (roomID) {
         document.addEventListener('DOMContentLoaded', () => {
             const iframe = document.createElement("iframe");
