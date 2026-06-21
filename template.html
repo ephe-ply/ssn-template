@@ -18,6 +18,10 @@
             font-size: 22px;
         }
 
+        .name {
+            margin-right: 8px;
+        }
+
 		.message-container {
 			position: relative;
 			margin-bottom: 20px;
@@ -222,7 +226,7 @@
 			${data.chatimg ? `<div class="avatar-wrapper"><div class="avatar" style="background-image: url('${data.chatimg}');"></div></div>` : ''}
 			<div class="username-box">
                 <span>${platformIconHtml}</span>
-				<span>${data.chatname}</span>
+				<span class="name">${data.chatname}</span>
 				<span class="badges">${chatbadges}</span>
 			</div>
 			<div class="text"><span class="timestamp">[${timestampStr}]</span>${data.chatmessage || ''}</div>
