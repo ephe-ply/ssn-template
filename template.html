@@ -65,11 +65,19 @@
 			color: white;
 		}
 
+        .platform-icon {
+            height: 1.1em;        /* Dynamically scales exactly to match the font size */
+            width: auto;
+            margin-right: 8px;    /* Leaves a clean space right before the username string */
+            align-self: center;   /* Vertical alignment stabilization */
+        }
+
         .badge {
             height: 1em;
             vertical-align: middle;
             margin-left: 0px;
         }
+
 		.badges {
 			margin-left: 10px;
         }
@@ -210,7 +218,7 @@
         const timestampStr = `${hours}:${minutes}`;
 
         const platformIconHtml = data.type ? `<img class="platform-icon" src="https://socialstream.ninja/sources/images/${data.type}.png" onerror="this.style.display='none'" />` : '';
-
+        
 		messageDiv.innerHTML = `
 			${data.chatimg ? `<div class="avatar-wrapper"><div class="avatar" style="background-image: url('${data.chatimg}');"></div></div>` : ''}
 			<div class="username-box">
