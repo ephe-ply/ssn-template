@@ -14,11 +14,11 @@
             height: 100%;
             font-family: 'Host Grotesk', sans-serif;
             background-color: transparent;
-            font-size: 16px; 
+            font-size: 18px; /* Bumped base font size to 18px */
         }
 
         #chat-container {
-            padding: 6px;             /* Reduced container padding */
+            padding: 10px;
             max-width: 450px;
             margin: auto;
             height: 100vh;
@@ -37,9 +37,9 @@
 
         .message-container {
             position: relative;
-            margin-bottom: 4px;       /* Hard compression for tight row nesting */
+            margin-bottom: 10px;       /* Added a bit more breathing room between messages */
             opacity: 0;
-            transform: translateY(5px); /* Shorter slide animation for responsive rendering */
+            transform: translateY(8px);
             transition: opacity 0.25s ease, transform 0.25s ease;
             width: 100%;
         }
@@ -51,7 +51,7 @@
 
         .message-container.removing {
             opacity: 0;
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
         
@@ -64,35 +64,35 @@
             display: flex;
             align-items: center;
             flex-wrap: wrap;
-            gap: 4px;                 /* Compressed element gaps */
-            margin-bottom: 1px;       /* Minimized space between header and text */
+            gap: 6px;                 
+            margin-bottom: 2px;       
         }
 
-        /* Minimalistic Timestamp */
+        /* Black Timestamp */
         .timestamp {
-            font-size: 0.7em;         /* Slightly smaller timestamp font */
-            color: rgba(255, 255, 255, 0.4);
-            font-weight: 400;
+            font-size: 0.85em;         
+            color: #000000;           /* Set to solid black */
+            font-weight: 500;
             user-select: none;
         }
 
         /* Platform Icons Scaling */
         .platform-icon {
-            height: 0.9em;            /* Snugly matches tighter text baseline */
+            height: 0.95em;            
             width: auto;
             display: inline-block;
         }
 
-        /* Flat Username layout */
+        /* Black Username layout */
         .username {
-            color: #E2E8F0;
+            color: #000000;           /* Set to solid black */
             font-weight: 700;
-            font-size: 0.85em;        /* Scaled down username slightly */
+            font-size: 0.95em;        
             letter-spacing: 0.2px;
         }
 
         .badge {
-            height: 0.85em;           /* Sized down to match text */
+            height: 0.9em;           
             vertical-align: middle;
         }
 
@@ -102,20 +102,20 @@
             align-items: center;
         }
 
-        /* Flat Message content block */
+        /* Blue Message content block */
         .text {
-            color: #A0AEC0;
-            font-size: 0.9em;         /* Sized down text slightly for maximum density */
-            line-height: 1.25;        /* Tightened leading line height */
+            color: #4A76A8;           /* Restored original distinct blue color */
+            font-size: 1em;         
+            line-height: 1.35;        
             word-break: break-word;
             padding-left: 2px;
         }
 
         /* Donation banner stylings */
         .donation {
-            margin-top: 2px;          /* Tightened padding */
-            font-size: 0.8em;
-            color: #38B2AC;
+            margin-top: 3px;          
+            font-size: 0.85em;
+            color: #2D7B7B;
             font-weight: 600;
             padding-left: 2px;
         }
@@ -143,7 +143,7 @@
     }
     if (urlParams.has("font")) {
         var _fs = parseInt(urlParams.get("font"), 10);
-        if (!isNaN(_fs) && _fs > 0) { document.documentElement.style.fontSize = (_fs + 1) + "px"; }
+        if (!isNaN(_fs) && _fs > 0) { document.documentElement.style.fontSize = _fs + "px"; }
     }
 
     if (urlParams.has("fontfamily")) {
