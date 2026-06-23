@@ -15,7 +15,7 @@
             background-color: rgba(10, 22, 40, 0.8);
             font-family: 'Host Grotesk', sans-serif;
             background-color: #0000;
-            font-size: 22px;
+            font-size: 19px;
         }
 
 		.message-container {
@@ -166,7 +166,7 @@
         var _fs = parseInt(urlParams.get("font"), 10);
         if (!isNaN(_fs) && _fs > 0) { document.documentElement.style.fontSize = (_fs + 3) + "px"; }
     } else {
-        document.documentElement.style.fontSize = "22px";
+        document.documentElement.style.fontSize = "19px";
     }
     if (urlParams.has("fontfamily")) {
         var _ff = (urlParams.get("fontfamily") || "").trim();
