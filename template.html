@@ -12,140 +12,119 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(10, 22, 40, 0.8);
             font-family: 'Host Grotesk', sans-serif;
-            background-color: #0000;
-            font-size: 19px;
+            background-color: transparent;
+            font-size: 16px; 
         }
 
-		.message-container {
-			position: relative;
-			margin-bottom: 20px;
-			opacity: 0;
-			transform: translateY(20px);
-			transition: opacity 0.3s ease, transform 0.3s ease;
-		}
-
-		.message-container.visible {
-			opacity: 1;
-			transform: translateY(0);
-		}
-
-		.message-container.removing {
-			opacity: 0;
-			transform: translateY(-20px);
-			transition: opacity 0.5s ease, transform 0.5s ease;
-		}
-		
-		.badges:empty, span:empty, .text:empty, .donation:empty {
-			display:none;
-		}
-
-        .username-box {
-            display: flex;
-            position: absolute;
-            top: -19px;
-            left: 0px;
-            background: linear-gradient(145deg, #AEC6CF, #B0E0E6);
-            padding: 8px 15px;
-            border-radius: 8px;
-            color: #ffffff;
-            font-weight: 600;
-            z-index: 2;
-            font-size: 0.95em;
-            white-space: nowrap;
-        }
-		
-		.username-box span {
-			display:inline-flex;
-			margin: auto 0;
-		}
-		
-		.donation {
-			padding: 7px 18px 5px 18px;
-            color: #2D7B7B;       /* Changed from white to deep turquoise */
-            font-weight: 600;
-		}
-
-        .platform-icon {
-            height: 1.1em;        /* Dynamically scales exactly to match the font size */
-            width: auto;
-            margin-right: 8px;    /* Leaves a clean space right before the username string */
-            align-self: center;   /* Vertical alignment stabilization */
-        }
-
-        .badge {
-            height: 1em;
-            vertical-align: middle;
-            margin-left: 0px;
-        }
-
-		.badges {
-			margin-left: 10px;
-        }
-
-        .username-box .badges {
-            margin-left: 8px;
-        }
-
-		.message {
-			display: inline-block;
-			max-height: none;
-			max-width: 100%;
-			background: rgba(255, 255, 255, 0.93);
-			padding: 35px 18px 15px 18px;
-			margin-top: 31px;
-			margin-left: 15px;
-			border-radius: 10px;
-			color: #4A76A8;
-			position: relative;
-			word-wrap: break-word;
-		}
-
-        .text {
-            font-size: clamp(0.95em, 2.4vw, 1.15em);
-            line-height: 1.4;
-			word-break: break-word;
-        }
-
-        /* Styling for the added 24h timestamp */
-        .timestamp {
-            font-size: 18px;
-            color: #000000;
-            margin-right: 8px;
-            font-weight: 500;
-            user-select: none;
-        }
-
-		.badges svg, .badges img, .text svg, .text img {
-			max-width:64px;
-			max-height:24px;
-		}
-		
-		#chat-container {
-			padding: 0;
-			max-width: 456px;
-			margin: auto;
-			height: 100vh;
-			overflow-y: auto;
-			scrollbar-width: none;  /* Firefox */
-			-ms-overflow-style: none;  /* IE and Edge */
+        #chat-container {
+            padding: 6px;             /* Reduced container padding */
+            max-width: 450px;
+            margin: auto;
+            height: 100vh;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-		}
+            box-sizing: border-box;
+        }
 
-		#chat-container::-webkit-scrollbar {
-			display: none;  /* Chrome, Safari, Opera */
-		}
+        #chat-container::-webkit-scrollbar {
+            display: none;
+        }
 
-		@keyframes slideFadeIn {
-			to {
-				opacity: 1;
-				transform: translateY(0);
-			}
-		}
-		
+        .message-container {
+            position: relative;
+            margin-bottom: 4px;       /* Hard compression for tight row nesting */
+            opacity: 0;
+            transform: translateY(5px); /* Shorter slide animation for responsive rendering */
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            width: 100%;
+        }
+
+        .message-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .message-container.removing {
+            opacity: 0;
+            transform: translateY(-5px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .badges:empty, span:empty, .text:empty, .donation:empty {
+            display: none;
+        }
+
+        /* Minimal Header Block (Inline Flow) */
+        .message-header {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;                 /* Compressed element gaps */
+            margin-bottom: 1px;       /* Minimized space between header and text */
+        }
+
+        /* Minimalistic Timestamp */
+        .timestamp {
+            font-size: 0.7em;         /* Slightly smaller timestamp font */
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 400;
+            user-select: none;
+        }
+
+        /* Platform Icons Scaling */
+        .platform-icon {
+            height: 0.9em;            /* Snugly matches tighter text baseline */
+            width: auto;
+            display: inline-block;
+        }
+
+        /* Flat Username layout */
+        .username {
+            color: #E2E8F0;
+            font-weight: 700;
+            font-size: 0.85em;        /* Scaled down username slightly */
+            letter-spacing: 0.2px;
+        }
+
+        .badge {
+            height: 0.85em;           /* Sized down to match text */
+            vertical-align: middle;
+        }
+
+        .badges {
+            display: inline-flex;
+            gap: 3px;
+            align-items: center;
+        }
+
+        /* Flat Message content block */
+        .text {
+            color: #A0AEC0;
+            font-size: 0.9em;         /* Sized down text slightly for maximum density */
+            line-height: 1.25;        /* Tightened leading line height */
+            word-break: break-word;
+            padding-left: 2px;
+        }
+
+        /* Donation banner stylings */
+        .donation {
+            margin-top: 2px;          /* Tightened padding */
+            font-size: 0.8em;
+            color: #38B2AC;
+            font-weight: 600;
+            padding-left: 2px;
+        }
+
+        .badges svg, .badges img, .text svg, .text img {
+            max-width: 48px;
+            max-height: 20px;
+        }
+        
     </style>
 </head>
 <body>
@@ -164,10 +143,9 @@
     }
     if (urlParams.has("font")) {
         var _fs = parseInt(urlParams.get("font"), 10);
-        if (!isNaN(_fs) && _fs > 0) { document.documentElement.style.fontSize = (_fs + 3) + "px"; }
-    } else {
-        document.documentElement.style.fontSize = "19px";
+        if (!isNaN(_fs) && _fs > 0) { document.documentElement.style.fontSize = (_fs + 1) + "px"; }
     }
+
     if (urlParams.has("fontfamily")) {
         var _ff = (urlParams.get("fontfamily") || "").trim();
         if (_ff) {
@@ -187,36 +165,28 @@
         return isNaN(v) ? 30000 : v;
     })();
 
-	function addMessageToOverlay(data) {
-		if (hideBots && data.bot) { return; }
-		if (!data.chatname && data.meta) {
-			return;
-		}
+    function addMessageToOverlay(data) {
+        if (hideBots && data.bot) { return; }
+        if (!data.chatname && data.meta) { return; }
 
-		const messageContainer = document.createElement('div');
-		messageContainer.classList.add('message-container');
-		
-		const messageDiv = document.createElement('div');
-		messageDiv.classList.add('message');
-		if (data.mid) messageDiv.id = data.mid;
-		data.sourceicon = `https://socialstream.ninja/sources/images/${data.type}.png`;
+        const messageContainer = document.createElement('div');
+        messageContainer.classList.add('message-container');
 
-		let chatbadges = "";
-		if (data.chatbadges) {
-			data.chatbadges.slice(0, 2).forEach(badge => {
-				if (typeof badge === "object") {
-					if (badge.type === "img" && badge.src) {
-						chatbadges += `<img class='badge' src='${badge.src}' />`;
-					} else if (badge.type === "svg" && badge.html) {
-						chatbadges += `<span class='badge svg'>${badge.html}</span>`;
-					}
-				} else {
-					chatbadges += `<img class='badge' src='${badge}' />`;
-				}
-			});
-		}
+        let chatbadges = "";
+        if (data.chatbadges) {
+            data.chatbadges.slice(0, 2).forEach(badge => {
+                if (typeof badge === "object") {
+                    if (badge.type === "img" && badge.src) {
+                        chatbadges += `<img class='badge' src='${badge.src}' />`;
+                    } else if (badge.type === "svg" && badge.html) {
+                        chatbadges += `<span class='badge svg'>${badge.html}</span>`;
+                    }
+                } else {
+                    chatbadges += `<img class='badge' src='${badge}' />`;
+                }
+            });
+        }
 
-        // Generate current local time in 24-hour format (HH:MM)
         const now = new Date();
         const hours = String(now.getHours()).padStart(2, '0');
         const minutes = String(now.getMinutes()).padStart(2, '0');
@@ -224,39 +194,37 @@
 
         const platformIconHtml = data.type ? `<img class="platform-icon" src="https://socialstream.ninja/sources/images/${data.type}.png" onerror="this.style.display='none'" />` : '';
 
-		messageDiv.innerHTML = `
-			${data.chatimg ? `<div class="avatar-wrapper"><div class="avatar" style="background-image: url('${data.chatimg}');"></div></div>` : ''}
-			<div class="username-box">
-                <span>${platformIconHtml}</span>
-				<span>${data.chatname}</span>
-				<span class="badges">${chatbadges}</span>
-			</div>
-			<div class="text"><span class="timestamp">[${timestampStr}]</span>${data.chatmessage || ''}</div>
-			${(data.donation||data.hasDonation) ? `<div class="donation">${(data.donation||data.hasDonation)}</div>` : ''}
-		`;
+        messageContainer.innerHTML = `
+            <div class="message-header">
+                <span class="timestamp">[${timestampStr}]</span>
+                ${platformIconHtml}
+                <span class="username">${data.chatname}</span>
+                <span class="badges">${chatbadges}</span>
+            </div>
+            <div class="text">${data.chatmessage || ''}</div>
+            ${(data.donation||data.hasDonation) ? `<div class="donation">${(data.donation||data.hasDonation)}</div>` : ''}
+        `;
 
-		messageContainer.appendChild(messageDiv);
-		chatContainer.appendChild(messageContainer);
+        chatContainer.appendChild(messageContainer);
 
-		messageContainer.offsetHeight;
-		
-		requestAnimationFrame(() => {
-			messageContainer.classList.add('visible');
+        messageContainer.offsetHeight;
+        
+        requestAnimationFrame(() => {
+            messageContainer.classList.add('visible');
             chatContainer.scrollTop = chatContainer.scrollHeight;
-		});
+        });
 
         if (SHOWTIME > 0) {
             setTimeout(() => {
                 messageContainer.classList.add('removing');
-                
                 setTimeout(() => {
                     if (messageContainer.parentNode) {
                         messageContainer.parentNode.removeChild(messageContainer);
                     }
-                }, 500);
+                }, 300);
             }, SHOWTIME);
         }
-	}
+    }
 
     if (roomID) {
         document.addEventListener('DOMContentLoaded', () => {
@@ -293,14 +261,13 @@
                 socketserver.send(JSON.stringify({"join":roomID, "out":3, "in":4}));
             };
             socketserver.addEventListener('message', function (event) {
-                var resp = false
                 if (event.data){
                     var data = JSON.parse(event.data);
                     addMessageToOverlay(data);
                     if (data.get){
                         var ret = {};
                         ret.callback = {};
-                        ret.callback.get = data.get
+                        ret.callback.get = data.get;
                         ret.callback.result = true;
                         socketserver.send(JSON.stringify(ret));
                     }
