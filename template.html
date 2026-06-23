@@ -14,7 +14,7 @@
             height: 100%;
             font-family: 'Host Grotesk', sans-serif;
             background-color: transparent;
-            font-size: 18px; /* Bumped base font size to 18px */
+            font-size: 18px; 
         }
 
         #chat-container {
@@ -37,7 +37,7 @@
 
         .message-container {
             position: relative;
-            margin-bottom: 10px;       /* Added a bit more breathing room between messages */
+            margin-bottom: 10px;       
             opacity: 0;
             transform: translateY(8px);
             transition: opacity 0.25s ease, transform 0.25s ease;
@@ -71,7 +71,7 @@
         /* Black Timestamp */
         .timestamp {
             font-size: 0.85em;         
-            color: #000000;           /* Set to solid black */
+            color: #000000;           
             font-weight: 500;
             user-select: none;
         }
@@ -83,12 +83,18 @@
             display: inline-block;
         }
 
-        /* Black Username layout */
+        /* Black Username layout with 17-character truncation */
         .username {
-            color: #000000;           /* Set to solid black */
+            color: #000000;           
             font-weight: 700;
             font-size: 0.95em;        
             letter-spacing: 0.2px;
+            max-width: 17ch;          /* Locks visual width roughly to 17 characters */
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;  /* Appends "..." dynamically */
+            display: inline-block;
+            vertical-align: bottom;
         }
 
         .badge {
@@ -104,20 +110,26 @@
 
         /* Blue Message content block */
         .text {
-            color: #4A76A8;           /* Restored original distinct blue color */
+            color: #4A76A8;           
             font-size: 1em;         
             line-height: 1.35;        
             word-break: break-word;
             padding-left: 2px;
         }
 
-        /* Donation banner stylings */
+        /* Bold, Bordered Donation Badge */
         .donation {
-            margin-top: 3px;          
-            font-size: 0.85em;
-            color: #2D7B7B;
-            font-weight: 600;
-            padding-left: 2px;
+            display: inline-block;
+            margin-top: 5px;          
+            font-size: 0.8em;
+            color: #1D5C5C;                  /* Darker teal for high contrast readability */
+            font-weight: 800;                /* Ultra bold font weight */
+            padding: 2px 8px;                /* Inner padding container */
+            background: rgba(56, 178, 172, 0.15); /* Light translucent teal fill background */
+            border: 1px solid #38B2AC;       /* Crisp accent border boundary */
+            border-radius: 20px;             /* Rounded pill format styling */
+            text-transform: uppercase;       /* Elevates attention draw */
+            letter-spacing: 0.5px;
         }
 
         .badges svg, .badges img, .text svg, .text img {
@@ -194,15 +206,16 @@
 
         const platformIconHtml = data.type ? `<img class="platform-icon" src="https://socialstream.ninja/sources/images/${data.type}.png" onerror="this.style.display='none'" />` : '';
 
+        // Added wrapper formatting container for inline execution
         messageContainer.innerHTML = `
             <div class="message-header">
                 <span class="timestamp">[${timestampStr}]</span>
                 ${platformIconHtml}
-                <span class="username">${data.chatname}</span>
+                <span class="username" title="${data.chatname}">${data.chatname}</span>
                 <span class="badges">${chatbadges}</span>
             </div>
             <div class="text">${data.chatmessage || ''}</div>
-            ${(data.donation||data.hasDonation) ? `<div class="donation">${(data.donation||data.hasDonation)}</div>` : ''}
+            ${(data.donation||data.hasDonation) ? `<div><div class="donation">${(data.donation||data.hasDonation)}</div></div>` : ''}
         `;
 
         chatContainer.appendChild(messageContainer);
